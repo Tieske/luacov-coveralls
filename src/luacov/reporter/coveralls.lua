@@ -152,6 +152,7 @@ function CoverallsReporter:new(conf)
       end
    end
 
+print("Repo type =====", repo:type())
    if repo:type() == 'git' then
       o._json.git      = o._json.git or {}
       o._json.git.head = o._json.git.head or {}
@@ -163,6 +164,7 @@ function CoverallsReporter:new(conf)
       o._json.git.head.committer_email = o._json.git.head.committer_email or repo:last_committer_email()
       o._json.git.head.message         = o._json.git.head.message         or repo:last_message()
       o._json.git.branch               = o._json.git.branch               or ci.branch() or repo:current_branch()
+print(o._json.git.remotes)
       if not o._json.git.remotes then
          o._json.git.remotes = json.init_array{}
          local t = repo:remotes()
@@ -170,6 +172,9 @@ function CoverallsReporter:new(conf)
             table.insert(o._json.git.remotes,{name=name,url=url})
          end end
       end
+for _,t in ipairs(o._json.git.remotes) do
+  print(t.name, t.url)
+end
    end
 
    return o
