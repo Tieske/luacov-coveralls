@@ -42,10 +42,13 @@ end
 local git_remotes              = function (cwd)
   local str, err = git_exec(cwd, 'remote -v')
   if not str then return nil, err end
+print("Tieske========git output:\n",str)
   local res = {}
   str:gsub("%s*(%S+)%s+([^\n\r]+)%((%a+)%)%s*\r?\n", function(name, url, mode)
+print("Tieske==",name,url,mode)
     if mode == 'fetch' then res[name] = url end
   end)
+print("Tieske==remotes found:",#res)
   return res
 end
 
@@ -54,7 +57,10 @@ local GitRepoInfo = {} do
 GitRepoInfo.__index = GitRepoInfo
 
 function GitRepoInfo:new(repo_path)
+print("Tieske== initial path:",repo_path)
+
   repo_path = path.fullpath(repo_path)
+print("Tieske== expanded path:",repo_path)
 
   if not path.isdir(repo_path) then
     return nil, 'git rep does not exists'

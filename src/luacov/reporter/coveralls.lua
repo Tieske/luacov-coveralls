@@ -47,7 +47,7 @@ local function trace_json(o)
       debug_print(o, "  remotes\n")
       for i, t in ipairs(o._json.git.remotes) do
         debug_print(o, "    ", t.name, " ", t.url, "\n")
-      end 
+      end
    end
    debug_print(o, "--------------------\n")
 end
@@ -58,7 +58,7 @@ function CoverallsReporter:new(conf)
 
    -- read coveralls specific configurations
    local cc = conf.coveralls or {}
-   self._debug = not not cc.debug
+   self._debug = true --not not cc.debug
    if cc.merge then
       self._source_files = {}
    end
