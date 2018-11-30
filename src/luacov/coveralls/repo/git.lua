@@ -41,6 +41,7 @@ local git_current_branch       = function (cwd)
 end
 local git_remotes              = function (cwd)
   local str, err = git_exec(cwd, 'remote -v')
+print(str, err)
   if not str then return nil, err end
 print("Tieske========git output:\n",str)
   local res = {}

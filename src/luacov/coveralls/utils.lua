@@ -70,7 +70,7 @@ local exec do
 
 local lua_version_t
 local function lua_version()
-  if not lua_version_t then 
+  if not lua_version_t then
     local version = rawget(_G,"_VERSION")
     local maj,min = version:match("^Lua (%d+)%.(%d+)$")
     if maj then                         lua_version_t = {tonumber(maj),tonumber(min)}
@@ -89,6 +89,7 @@ exec = function(cwd, cmd, ...)
   local tmpfile = path.tmpname()
   if ... then cmd = cmd .. ' ' .. string.format(...) end
   cmd = cmd .. ' >"' .. tmpfile .. '" 2>&1'
+print("exec: ",cmd)
 
   local p
   if cwd and (cwd ~= "") and (cwd ~= ".") then
@@ -97,8 +98,12 @@ exec = function(cwd, cmd, ...)
   end
   local res1,res2,res2 = os.execute(cmd)
   if p then path.chdir(p) end
+print("exec res1: ",res1)
+print("exec res2: ",res2)
+print("exec res3: ",res3)
 
   local data = read_file(tmpfile)
+print("exec data: ", data)
   path.remove(tmpfile)
 
   if res2 == nil then -- with Lua 5.1, os.execute returns only one value
