@@ -94,9 +94,10 @@ print("exec: ",cmd)
   local p
   if cwd and (cwd ~= "") and (cwd ~= ".") then
     p = path.currentdir()
+print("changing dir from '"..p.."' to '"..cwd.."'")
     path.chdir(cwd)
   end
-  local res1,res2,res2 = os.execute(cmd)
+  local res1,res2,res3 = os.execute(cmd)
   if p then path.chdir(p) end
 print("exec res1: ",res1)
 print("exec res2: ",res2)
